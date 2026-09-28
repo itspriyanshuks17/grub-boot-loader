@@ -23,7 +23,7 @@ Six color palettes, a simple installer, and a live preview gallery.
 - Pick from **six palettes** using the interactive installer.
 - Preview the palettes in the [theme gallery](docs/preview.html) or the [project website](docs/index.html).
 - The installer detects common GRUB configuration commands, including `update-grub` and `grub2-mkconfig`.
-- Switch themes by running the installer again; remove the theme with its uninstall option.
+- Use `sudo ./install.sh --switch` to choose another theme; remove the active bundled theme with `--uninstall`.
 
 </details>
 
@@ -61,7 +61,13 @@ Install a named theme directly:
 sudo ./install.sh --theme aurora
 ```
 
-Run the installer again to switch themes. To uninstall:
+To switch interactively, the installer shows the current theme and marks it in the list:
+
+```bash
+sudo ./install.sh --switch
+```
+
+To uninstall:
 
 ```bash
 sudo ./install.sh --uninstall
