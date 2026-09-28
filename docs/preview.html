@@ -32,7 +32,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
       gap: 32px;
       max-width: 1200px;
       margin: 0 auto;
@@ -125,6 +125,17 @@
       margin-top: 10px;
       font-size: 0.95rem;
       border: 1px solid #1a3040;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 28px 16px; }
+      h1 { font-size: clamp(1.45rem, 7vw, 2rem); }
+      .subtitle { margin-bottom: 30px; }
+      .grid { gap: 18px; }
+      .info { padding: 16px; }
+      .swatches { flex-wrap: wrap; }
+      .install-hint { margin-top: 32px; }
+      .install-hint code { max-width: 100%; overflow-wrap: anywhere; padding: 10px 14px; }
     }
   </style>
 </head>
