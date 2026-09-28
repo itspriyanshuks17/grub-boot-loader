@@ -1,0 +1,84 @@
+# Marquardt GRUB theme
+desktop-image: "background.png"
+desktop-color: "#06262c"
+title-text: ""
+terminal-font: "Unifont Regular 16"
+terminal-left: "0"
+terminal-top: "0"
+terminal-width: "100%"
+terminal-height: "100%"
+terminal-border: "0"
+
++ label {
+    top = 58%
+    left = 0
+    width = 100%
+    align = "center"
+    text = "SELECT OPERATING SYSTEM"
+    color = "#7fd6de"
+    font = "Unifont Regular 16"
+}
+
++ boot_menu {
+    left = 50%-260
+    top = 63%
+    width = 520
+    height = 22%
+    item_font = "Unifont Regular 16"
+    selected_item_font = "Unifont Regular 16"
+    item_color = "#c9e9ec"
+    selected_item_color = "#ffffff"
+    item_height = 44
+    item_padding = 14
+    item_spacing = 8
+    item_icon_space = 0
+    icon_width = 0
+    icon_height = 0
+    selected_item_pixmap_style = "select_*"
+    scrollbar = false
+}
+
++ progress_bar {
+    id = "__timeout__"
+    left = 50%-260
+    top = 90%
+    width = 520
+    height = 6
+    show_text = false
+    bar_style = "progress_c.png"
+    highlight_style = "progress_c.png"
+    fg_color = "#009aa6"
+    bg_color = "#0b3a41"
+    border_color = "#0b3a41"
+}
+
++ label {
+    top = 93%
+    left = 0
+    width = 100%
+    align = "center"
+    id = "__timeout__"
+    text = "Booting in %d seconds"
+    color = "#7fd6de"
+    font = "Unifont Regular 16"
+}
+
++ label {
+    top = 97%
+    left = 0
+    width = 100%
+    align = "center"
+    text = "↑ ↓ select    Enter boot    E edit    C command line"
+    color = "#4f8f96"
+    font = "Unifont Regular 16"
+}
+
++ label {
+    top = 99%
+    left = 0
+    width = 100%
+    align = "center"
+    text = "Made with ❤ by Priyanshu Kumar Sharma"
+    color = "#2a5a62"
+    font = "Unifont Regular 16"
+}

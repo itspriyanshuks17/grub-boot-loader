@@ -350,6 +350,167 @@ details code { color: var(--accent); background: none; font-size: 0.88rem; }
   white-space: pre;
 }
 
+/* ── LOCK BADGE ── */
+.lock-note { color: #7a5a30; font-size: 0.82rem; margin-top: 6px; }
+
+.theme-card.locked { position: relative; }
+.theme-card.locked img, .theme-card.locked .fake-img { filter: brightness(0.45) blur(1px); }
+.theme-card.locked:hover img, .theme-card.locked:hover .fake-img { filter: brightness(0.55); }
+
+.lock-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -160%);
+  background: rgba(10,20,30,0.88);
+  border: 1px solid #c8860a;
+  color: #f0b040;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: #0a1a24;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+.modal h3 { color: var(--white); font-size: 1.2rem; margin-bottom: 10px; }
+.modal p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6; }
+
+#key-input {
+  width: 100%;
+  background: #040c12;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--accent2);
+  font-family: monospace;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#key-input:focus { border-color: var(--accent); }
+
+.key-error { color: #ff6060; font-size: 0.82rem; min-height: 20px; margin-top: 8px; }
+
+.modal-btns { display: flex; gap: 12px; margin-top: 20px; }
+.btn-verify {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-verify:hover { background: #00b8c6; }
+.btn-cancel {
+  background: var(--bg3);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.btn-cancel:hover { color: var(--white); }
+
+.unlock-note { color: var(--muted); font-size: 0.8rem; margin-top: 0; }
+
+/* ── AUTHOR ── */
+.author-card {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.author-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #0b4f5c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+.author-info h3 { color: var(--white); font-size: 1.2rem; margin-bottom: 6px; }
+.author-info > p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+.author-links { display: flex; flex-direction: column; gap: 10px; }
+
+.author-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  width: fit-content;
+  transition: border-color 0.2s, color 0.2s;
+}
+.author-link svg { flex-shrink: 0; }
+
+.primary-acc { color: var(--accent2); }
+.primary-acc:hover { border-color: var(--accent2); }
+
+.secondary-acc { color: var(--muted); }
+.secondary-acc:hover { border-color: var(--accent); color: var(--accent); }
+
+.repo-link { color: var(--muted); }
+.repo-link:hover { border-color: var(--accent); color: var(--accent); }
+
+.badge {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.badge.secondary { background: #2a4a5a; color: var(--muted); }
+
+@media (max-width: 600px) {
+  .author-card { flex-direction: column; }
+}
+
 /* ── FOOTER ── */
 footer {
   border-top: 1px solid var(--border);

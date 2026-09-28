@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Marquardt GRUB Theme</title>
+<title>GRUB Boot Theme</title>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
@@ -15,13 +15,14 @@
     <a href="#install">Install</a>
     <a href="#manual">Manual</a>
     <a href="#faq">FAQ</a>
+    <a href="#author">Author</a>
     <a href="https://github.com/itspriyanshuks17/grub-boot-loader" target="_blank" class="btn-gh">GitHub</a>
   </div>
 </nav>
 
 <header>
   <div class="hero-text">
-    <h1>Marquardt GRUB Theme</h1>
+    <h1>GRUB Boot Theme</h1>
     <p>A minimal dark bootloader theme with 6 color palettes.<br/>One command to install. Works on Ubuntu, Fedora, Debian and more.</p>
     <div class="hero-btns">
       <a href="#install" class="btn-primary">Install Now</a>
@@ -35,19 +36,19 @@
 
 <section id="themes">
   <h2>Choose Your Theme</h2>
-  <p class="section-sub">Click a theme to see its colors. All themes share the same layout — only the palette changes.</p>
+  <p class="section-sub">Click a theme to see its colors. All themes share the same layout — only the palette changes.<br/>
+  <span class="lock-note">🔒 Locked themes require an access key.</span></p>
   <div class="theme-grid">
 
-    <div class="theme-card" onclick="selectTheme(this)" data-theme="marquardt">
-      <img src="img/marquardt.png" alt="Marquardt" onerror="this.style.display='none'"/>
+    <div class="theme-card locked" onclick="promptKey(this)" data-theme="marquardt">
+      <img src="img/marquardt.png" alt="Classic" onerror="this.style.display='none'"/>
+      <div class="lock-badge">🔒 Access Key Required</div>
       <div class="theme-info">
-        <h3>Marquardt</h3>
-        <p>Original branded look</p>
+        <h3>Classic</h3>
+        <p>Original branded look — dark teal</p>
         <div class="swatches">
-          <span class="sw" style="background:#009aa6"></span>
-          <code>#009aa6</code>
-          <span class="sw" style="background:#0b3a41"></span>
-          <code>#0b3a41</code>
+          <span class="sw" style="background:#009aa6"></span><code>#009aa6</code>
+          <span class="sw" style="background:#0b3a41"></span><code>#0b3a41</code>
         </div>
       </div>
     </div>
@@ -58,10 +59,8 @@
         <h3>Aurora</h3>
         <p>Cool sky — teal + purple</p>
         <div class="swatches">
-          <span class="sw" style="background:#2de3b5"></span>
-          <code>#2de3b5</code>
-          <span class="sw" style="background:#7c5cff"></span>
-          <code>#7c5cff</code>
+          <span class="sw" style="background:#2de3b5"></span><code>#2de3b5</code>
+          <span class="sw" style="background:#7c5cff"></span><code>#7c5cff</code>
         </div>
       </div>
     </div>
@@ -72,10 +71,8 @@
         <h3>Ember</h3>
         <p>Warm fire — orange + red</p>
         <div class="swatches">
-          <span class="sw" style="background:#ff8a3d"></span>
-          <code>#ff8a3d</code>
-          <span class="sw" style="background:#e0245e"></span>
-          <code>#e0245e</code>
+          <span class="sw" style="background:#ff8a3d"></span><code>#ff8a3d</code>
+          <span class="sw" style="background:#e0245e"></span><code>#e0245e</code>
         </div>
       </div>
     </div>
@@ -86,10 +83,8 @@
         <h3>Glacier</h3>
         <p>Ice cold — sky blue + deep blue</p>
         <div class="swatches">
-          <span class="sw" style="background:#5cc8ff"></span>
-          <code>#5cc8ff</code>
-          <span class="sw" style="background:#2a6bff"></span>
-          <code>#2a6bff</code>
+          <span class="sw" style="background:#5cc8ff"></span><code>#5cc8ff</code>
+          <span class="sw" style="background:#2a6bff"></span><code>#2a6bff</code>
         </div>
       </div>
     </div>
@@ -100,24 +95,21 @@
         <h3>Neon</h3>
         <p>Synthwave — pink + cyan</p>
         <div class="swatches">
-          <span class="sw" style="background:#ff3da5"></span>
-          <code>#ff3da5</code>
-          <span class="sw" style="background:#22e5ff"></span>
-          <code>#22e5ff</code>
+          <span class="sw" style="background:#ff3da5"></span><code>#ff3da5</code>
+          <span class="sw" style="background:#22e5ff"></span><code>#22e5ff</code>
         </div>
       </div>
     </div>
 
-    <div class="theme-card" onclick="selectTheme(this)" data-theme="mq">
+    <div class="theme-card locked" onclick="promptKey(this)" data-theme="mq">
       <div class="fake-img" style="background:linear-gradient(135deg,#040f10,#0b4f5c)">MQ</div>
+      <div class="lock-badge">🔒 Access Key Required</div>
       <div class="theme-info">
         <h3>MQ</h3>
-        <p>Marquardt branded — dark teal</p>
+        <p>Branded dark teal — exclusive</p>
         <div class="swatches">
-          <span class="sw" style="background:#009aa6"></span>
-          <code>#009aa6</code>
-          <span class="sw" style="background:#0b4f5c"></span>
-          <code>#0b4f5c</code>
+          <span class="sw" style="background:#009aa6"></span><code>#009aa6</code>
+          <span class="sw" style="background:#0b4f5c"></span><code>#0b4f5c</code>
         </div>
       </div>
     </div>
@@ -127,8 +119,7 @@
 
 <section id="install">
   <h2>Installation</h2>
-  <p class="section-sub">Three steps. Takes under a minute.</p>
-
+  <p class="section-sub">Four steps. Takes under a minute.</p>
   <div class="steps">
 
     <div class="step">
@@ -162,7 +153,7 @@
       <div class="step-num">3</div>
       <div class="step-body">
         <h3>Run the installer</h3>
-        <p>You will be shown a numbered menu to pick your theme.</p>
+        <p>You will be shown a numbered menu to pick your theme. Locked themes require an access key.</p>
         <div class="code-block">
           <code>sudo ./install.sh</code>
           <button onclick="copy(this)" data-text="sudo ./install.sh">Copy</button>
@@ -173,8 +164,8 @@
   1) aurora
   2) ember
   3) glacier
-  4) marquardt
-  5) mq
+  4) classic  [access key required]
+  5) mq       [access key required]
   6) neon
 
 Select a theme [1-6]: <span class="cursor">_</span></pre>
@@ -214,10 +205,10 @@ Select a theme [1-6]: <span class="cursor">_</span></pre>
   <h2>Manual Install</h2>
   <p class="section-sub">If you prefer to do it yourself without the script.</p>
   <div class="code-block wide">
-    <pre><code>sudo cp -r themes/marquardt/ /boot/grub/themes/marquardt
+    <pre><code>sudo cp -r themes/aurora/ /boot/grub/themes/aurora
 
 # Add to /etc/default/grub:
-GRUB_THEME="/boot/grub/themes/marquardt/theme.txt"
+GRUB_THEME="/boot/grub/themes/aurora/theme.txt"
 GRUB_GFXMODE=1920x1080,auto
 
 # Apply:
@@ -225,7 +216,7 @@ sudo update-grub
 # Fedora/RHEL:
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre>
   </div>
-  <p class="note">Replace <code>marquardt</code> with any theme name from the <code>themes/</code> folder.</p>
+  <p class="note">Replace <code>aurora</code> with any theme name from the <code>themes/</code> folder.</p>
 </section>
 
 <section id="faq">
@@ -261,21 +252,81 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre>
       <summary>How do I test without installing?</summary>
       <p>Press <code>C</code> at the GRUB menu to open the command line, then:</p>
       <pre class="inline-pre">loadfont (hd0,1)/boot/grub/fonts/unicode.pf2
-set theme=(hd0,1)/boot/grub/themes/marquardt/theme.txt
+set theme=(hd0,1)/boot/grub/themes/aurora/theme.txt
 export theme</pre>
+    </details>
+
+    <details>
+      <summary>How do I get access to locked themes?</summary>
+      <p>The Classic and MQ themes are exclusive. Contact the author to request an access key.</p>
     </details>
 
   </div>
 </section>
 
+<section id="author">
+  <h2>Author</h2>
+  <div class="author-card">
+    <div class="author-avatar">PKS</div>
+    <div class="author-info">
+      <h3>Priyanshu Kumar Sharma</h3>
+      <p>Developer &amp; designer of this GRUB theme collection.</p>
+      <div class="author-links">
+        <a href="https://github.com/PriyanshuKSharma" target="_blank" class="author-link primary-acc">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          PriyanshuKSharma <span class="badge">Primary</span>
+        </a>
+        <a href="https://github.com/itspriyanshuks17" target="_blank" class="author-link secondary-acc">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          itspriyanshuks17 <span class="badge secondary">Repo Host</span>
+        </a>
+        <a href="https://github.com/itspriyanshuks17/grub-boot-loader" target="_blank" class="author-link repo-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          grub-boot-loader
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <p>Marquardt GRUB Theme &mdash; MIT License</p>
-  <p>
-    <a href="https://github.com/itspriyanshuks17/grub-boot-loader" target="_blank">GitHub</a>
+  <p>Made with ❤️ by <a href="https://github.com/PriyanshuKSharma" target="_blank">Priyanshu Kumar Sharma</a> &mdash; MIT License</p>
+  <p style="margin-top:6px">
+    <a href="https://github.com/itspriyanshuks17/grub-boot-loader" target="_blank">Repository</a>
     &nbsp;&middot;&nbsp;
     <a href="https://github.com/itspriyanshuks17/grub-boot-loader/issues" target="_blank">Report an Issue</a>
   </p>
 </footer>
+
+<!-- Access Key Modal -->
+<div id="key-modal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <h3>🔒 Restricted Theme</h3>
+    <p>This theme requires an access key. Enter your key below to unlock installation instructions.</p>
+    <input id="key-input" type="password" placeholder="Enter access key" autocomplete="off"/>
+    <div id="key-error" class="key-error"></div>
+    <div class="modal-btns">
+      <button onclick="verifyKey()" class="btn-verify">Unlock</button>
+      <button onclick="document.getElementById('key-modal').classList.remove('open')" class="btn-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Unlock Success Modal -->
+<div id="unlock-modal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <h3>✅ Access Granted</h3>
+    <p id="unlock-msg"></p>
+    <div class="code-block" style="margin:16px 0">
+      <code id="unlock-cmd"></code>
+      <button onclick="copy(this)">Copy</button>
+    </div>
+    <p class="unlock-note">Run this after cloning the repo. The installer will prompt for the theme name.</p>
+    <div class="modal-btns">
+      <button onclick="document.getElementById('unlock-modal').classList.remove('open')" class="btn-cancel">Close</button>
+    </div>
+  </div>
+</div>
 
 <script src="app.js"></script>
 </body>
