@@ -1,0 +1,5 @@
+build/
+src/*.o
+*.so
+brand/
+assets/logo_*.png
