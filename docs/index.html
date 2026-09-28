@@ -4,18 +4,27 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>GRUB Boot Theme</title>
-<link rel="stylesheet" href="style.css?v=2"/>
+<link rel="stylesheet" href="style.css?v=3"/>
 </head>
 <body>
 
 <nav>
-  <span class="logo">GRUB<span>Theme</span></span>
+  <span class="logo"><img src="img/marquardt-mark.png" alt=""/><span class="logo-name">GRUB<span>Theme</span></span></span>
   <div class="nav-links">
     <a href="#themes">Themes</a>
     <a href="#install">Install</a>
     <a href="#manual">Manual</a>
     <a href="#faq">FAQ</a>
     <a href="#author">Author</a>
+    <label class="sr-only" for="palette-select">Website color theme</label>
+    <select id="palette-select" class="palette-select" aria-label="Website color theme" title="Changes the website colors, not your installed GRUB theme">
+      <option value="aurora">Aurora colors</option>
+      <option value="ember">Ember colors</option>
+      <option value="glacier">Glacier colors</option>
+      <option value="neon">Neon colors</option>
+      <option value="marquardt">Classic colors</option>
+      <option value="mq">MQ colors</option>
+    </select>
     <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to light theme" aria-pressed="false">☀️ Light</button>
     <a href="https://github.com/itspriyanshuks17/grub-boot-loader" target="_blank" class="btn-gh">GitHub</a>
   </div>
@@ -346,6 +355,6 @@ export theme</pre>
   </div>
 </div>
 
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
