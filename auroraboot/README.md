@@ -43,8 +43,11 @@ screenshots and the GIF headlessly.
 ## Install on a real machine
 1. **Read "Limits" below first.**
 2. Linux: `sudo install/install-linux.sh --try` boots AuroraBoot **once** on next restart; your normal boot order is
-   untouched. If you like it: `sudo install/install-linux.sh` (adds an entry) or `--first` (makes it default).
-   Undo with `--uninstall`.
+   untouched. If you like it, run `sudo install/install-linux.sh --first` to make AuroraBoot the default firmware
+   entry. The installer places `AuroraBoot.efi` and `aurora.conf` in the mounted EFI System Partition at
+   `EFI/AuroraBoot/` (usually `/boot/efi/EFI/AuroraBoot/` on Ubuntu). The default command adds an entry but leaves
+   boot order unchanged. Choosing Ubuntu in AuroraBoot starts Ubuntu's existing shim/GRUB, so GRUB appears after
+   AuroraBoot; AuroraBoot does not replace Ubuntu's bootloader. Undo with `--uninstall`.
 3. Windows: `install\install-windows.ps1 -Try` from an elevated PowerShell (**experimental, untested**).
 4. Manual: copy `AuroraBoot.efi` and `aurora.conf` to `<ESP>/EFI/AuroraBoot/` and add a boot entry with
    `efibootmgr` or your firmware menu.
