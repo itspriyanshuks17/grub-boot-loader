@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>GRUB Boot Theme</title>
-<link rel="stylesheet" href="style.css?v=2"/>
+<link rel="stylesheet" href="style.css?v=3"/>
 </head>
 <body>
 
@@ -31,18 +31,19 @@
     </div>
   </div>
   <div class="hero-img">
-    <img src="img/themes.png" alt="Theme preview"/>
+    <img src="img/grub-aurora.webp" alt="Illustrative GRUB boot menu preview using the Aurora palette"/>
   </div>
 </header>
 
 <section id="themes">
   <h2>Choose Your Theme</h2>
+  <p class="preview-disclaimer">Illustrative previews based on the bundled GRUB artwork and theme colors. Your menu entries and resolution may differ.</p>
   <p class="section-sub">Click a theme to see its colors. All themes share the same layout — only the palette changes.<br/>
   <span class="lock-note">🔒 Locked themes require an access key.</span></p>
   <div class="theme-grid">
 
     <div class="theme-card locked" onclick="promptKey(this)" data-theme="marquardt">
-      <img src="img/marquardt.png" alt="Classic" onerror="this.style.display='none'"/>
+      <img src="img/grub-marquardt.webp" alt="Illustrative GRUB menu preview in the Classic palette"/>
       <div class="lock-badge">🔒 Access Key Required</div>
       <div class="theme-info">
         <h3>Classic</h3>
@@ -55,7 +56,7 @@
     </div>
 
     <div class="theme-card" onclick="selectTheme(this)" data-theme="aurora">
-      <div class="fake-img" style="background:linear-gradient(135deg,#060c1a,#0d2a40)">Aurora</div>
+      <img src="img/grub-aurora.webp" alt="Illustrative GRUB menu preview in the Aurora palette"/>
       <div class="theme-info">
         <h3>Aurora</h3>
         <p>Cool sky — teal + purple</p>
@@ -67,7 +68,7 @@
     </div>
 
     <div class="theme-card" onclick="selectTheme(this)" data-theme="ember">
-      <img src="img/ember.png" alt="Ember" onerror="this.style.display='none'"/>
+      <img src="img/grub-ember.webp" alt="Illustrative GRUB menu preview in the Ember palette"/>
       <div class="theme-info">
         <h3>Ember</h3>
         <p>Warm fire — orange + red</p>
@@ -79,7 +80,7 @@
     </div>
 
     <div class="theme-card" onclick="selectTheme(this)" data-theme="glacier">
-      <img src="img/glacier.png" alt="Glacier" onerror="this.style.display='none'"/>
+      <img src="img/grub-glacier.webp" alt="Illustrative GRUB menu preview in the Glacier palette"/>
       <div class="theme-info">
         <h3>Glacier</h3>
         <p>Ice cold — sky blue + deep blue</p>
@@ -91,7 +92,7 @@
     </div>
 
     <div class="theme-card" onclick="selectTheme(this)" data-theme="neon">
-      <img src="img/neon.png" alt="Neon" onerror="this.style.display='none'"/>
+      <img src="img/grub-neon.webp" alt="Illustrative GRUB menu preview in the Neon palette"/>
       <div class="theme-info">
         <h3>Neon</h3>
         <p>Synthwave — pink + cyan</p>
@@ -103,7 +104,7 @@
     </div>
 
     <div class="theme-card locked" onclick="promptKey(this)" data-theme="mq">
-      <div class="fake-img" style="background:linear-gradient(135deg,#040f10,#0b4f5c)">MQ</div>
+      <img src="img/grub-mq.webp" alt="Illustrative GRUB menu preview in the MQ palette"/>
       <div class="lock-badge">🔒 Access Key Required</div>
       <div class="theme-info">
         <h3>MQ</h3>
