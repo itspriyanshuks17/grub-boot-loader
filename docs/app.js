@@ -4,6 +4,29 @@ const THEME_NAMES = { marquardt: 'Classic', mq: 'MQ', aurora: 'Aurora', ember: '
 let pendingTheme = null;
 let selectedInstallTheme = null;
 
+/* Accessible dark/light appearance toggle, saved between visits. */
+const themeToggle = document.getElementById('theme-toggle');
+const savedTheme = localStorage.getItem('site-theme');
+if (savedTheme === 'light') document.documentElement.dataset.theme = 'light';
+updateThemeToggle();
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const isLight = document.documentElement.dataset.theme !== 'light';
+    document.documentElement.dataset.theme = isLight ? 'light' : 'dark';
+    localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+    updateThemeToggle();
+  });
+}
+
+function updateThemeToggle() {
+  if (!themeToggle) return;
+  const isLight = document.documentElement.dataset.theme === 'light';
+  themeToggle.textContent = isLight ? '🌙 Dark' : '☀️ Light';
+  themeToggle.setAttribute('aria-label', `Switch to ${isLight ? 'dark' : 'light'} theme`);
+  themeToggle.setAttribute('aria-pressed', String(isLight));
+}
+
 /* ── Theme cards (preview section) ── */
 function selectTheme(card) {
   document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
