@@ -7,7 +7,7 @@ Six color palettes, a simple installer, and a live preview gallery.
 
 [Browse the theme previews](docs/preview.html) · [Install a theme](#-quick-install) · [Troubleshooting](#-troubleshooting) · [Report a problem](https://github.com/itspriyanshuks17/grub-boot-loader/issues)
 
-![Themes preview](docs/img/themes.png)
+![Illustrative GRUB boot menu preview in the Aurora palette](docs/img/grub-aurora.webp)
 
 ![Platform](https://img.shields.io/badge/platform-Linux-2de3b5?style=flat-square)
 ![Bootloader](https://img.shields.io/badge/bootloader-GRUB2-7c5cff?style=flat-square)
@@ -77,6 +77,7 @@ The installer keeps the first backup it creates at `/etc/default/grub.bak-grubth
 |:--|:--|
 | Theme installer | **Bash** · GNU/Linux shell utilities · GRUB2 tools (`update-grub`, `grub-mkconfig`, or `grub2-mkconfig`) |
 | Project website and gallery | **HTML5**, **CSS3**, and **vanilla JavaScript** · GitHub Pages friendly static files |
+| Preview artwork | **Python 3** and **Pillow** render illustrative GRUB screens from the bundled theme assets |
 | Boot menu themes | GRUB theme configuration (`theme.txt`) · PNG artwork |
 | Project workflow | **Git** and **GitHub** |
 
@@ -138,6 +139,7 @@ docs/index.html     Project website
 docs/preview.html   Standalone theme gallery
 docs/style.css      Website styles and responsive layouts
 docs/app.js         Theme picker, installer guide, and appearance toggle
+docs/generate_previews.py  Rebuild illustrative GRUB preview images (requires Pillow)
 ```
 
 ## 🤝 Contributing
