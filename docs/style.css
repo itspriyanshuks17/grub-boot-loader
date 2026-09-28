@@ -178,6 +178,65 @@ section h2 {
 .sw { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0; }
 .swatches code { font-size: 0.75rem; color: var(--muted); background: none; }
 
+/* ── INSTALLER PICKER ── */
+.installer-picker {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+.picker-label {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+.picker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pick-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.pick-btn:hover { border-color: var(--accent); color: var(--accent); }
+.pick-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.locked-pick { border-color: #5a3a10; color: #c8860a; }
+.locked-pick:hover { border-color: #c8860a; color: #f0b040; }
+.locked-pick.selected { background: #7a4a10; border-color: #c8860a; color: #f0b040; }
+
+.installer-banner {
+  margin-top: 16px;
+  background: #061a10;
+  border: 1px solid #1a4a28;
+  border-radius: 8px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+#installer-banner-text { color: #4caf50; font-size: 0.88rem; font-weight: 500; }
+.banner-clear {
+  background: none;
+  border: 1px solid #1a4a28;
+  color: var(--muted);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.banner-clear:hover { color: var(--white); }
+
 /* ── STEPS ── */
 .steps { display: flex; flex-direction: column; gap: 0; }
 

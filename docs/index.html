@@ -119,7 +119,24 @@
 
 <section id="install">
   <h2>Installation</h2>
-  <p class="section-sub">Four steps. Takes under a minute.</p>
+  <p class="section-sub">Pick your theme below, then follow the steps. Takes under a minute.</p>
+
+  <div class="installer-picker">
+    <p class="picker-label">Step 0 — Select a theme to install:</p>
+    <div class="picker-grid">
+      <button class="pick-btn" onclick="pickTheme(this,'aurora')">Aurora</button>
+      <button class="pick-btn" onclick="pickTheme(this,'ember')">Ember</button>
+      <button class="pick-btn" onclick="pickTheme(this,'glacier')">Glacier</button>
+      <button class="pick-btn" onclick="pickTheme(this,'neon')">Neon</button>
+      <button class="pick-btn locked-pick" onclick="pickThemeLocked(this,'marquardt')">🔒 Classic</button>
+      <button class="pick-btn locked-pick" onclick="pickThemeLocked(this,'mq')">🔒 MQ</button>
+    </div>
+    <div id="installer-banner" class="installer-banner" style="display:none">
+      <span id="installer-banner-text"></span>
+      <button class="banner-clear" onclick="clearPick()">✕ Change</button>
+    </div>
+  </div>
+
   <div class="steps">
 
     <div class="step">
@@ -155,12 +172,12 @@
         <h3>Run the installer</h3>
         <p>You will be shown a numbered menu to pick your theme. Locked themes require an access key.</p>
         <div class="code-block">
-          <code>sudo ./install.sh</code>
-          <button onclick="copy(this)" data-text="sudo ./install.sh">Copy</button>
+          <code id="install-cmd">sudo ./install.sh</code>
+          <button onclick="copy(this)">Copy</button>
         </div>
         <div class="terminal">
           <div class="term-bar"><span></span><span></span><span></span></div>
-          <pre>Available themes:
+          <pre id="term-preview">Available themes:
   1) aurora
   2) ember
   3) glacier
