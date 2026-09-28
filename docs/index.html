@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Marquardt GRUB Theme</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<nav>
+  <span class="logo">GRUB<span>Theme</span></span>
+  <div class="nav-links">
+    <a href="#themes">Themes</a>
+    <a href="#install">Install</a>
+    <a href="#manual">Manual</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://github.com/itspriyanshuks17/grub-boot-loader" target="_blank" class="btn-gh">GitHub</a>
+  </div>
+</nav>
+
+<header>
+  <div class="hero-text">
+    <h1>Marquardt GRUB Theme</h1>
+    <p>A minimal dark bootloader theme with 6 color palettes.<br/>One command to install. Works on Ubuntu, Fedora, Debian and more.</p>
+    <div class="hero-btns">
+      <a href="#install" class="btn-primary">Install Now</a>
+      <a href="#themes" class="btn-outline">View Themes</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="img/themes.png" alt="Theme preview"/>
+  </div>
+</header>
+
+<section id="themes">
+  <h2>Choose Your Theme</h2>
+  <p class="section-sub">Click a theme to see its colors. All themes share the same layout — only the palette changes.</p>
+  <div class="theme-grid">
+
+    <div class="theme-card" onclick="selectTheme(this)" data-theme="marquardt">
+      <img src="img/marquardt.png" alt="Marquardt" onerror="this.style.display='none'"/>
+      <div class="theme-info">
+        <h3>Marquardt</h3>
+        <p>Original branded look</p>
+        <div class="swatches">
+          <span class="sw" style="background:#009aa6"></span>
+          <code>#009aa6</code>
+          <span class="sw" style="background:#0b3a41"></span>
+          <code>#0b3a41</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-card" onclick="selectTheme(this)" data-theme="aurora">
+      <div class="fake-img" style="background:linear-gradient(135deg,#060c1a,#0d2a40)">Aurora</div>
+      <div class="theme-info">
+        <h3>Aurora</h3>
+        <p>Cool sky — teal + purple</p>
+        <div class="swatches">
+          <span class="sw" style="background:#2de3b5"></span>
+          <code>#2de3b5</code>
+          <span class="sw" style="background:#7c5cff"></span>
+          <code>#7c5cff</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-card" onclick="selectTheme(this)" data-theme="ember">
+      <img src="img/ember.png" alt="Ember" onerror="this.style.display='none'"/>
+      <div class="theme-info">
+        <h3>Ember</h3>
+        <p>Warm fire — orange + red</p>
+        <div class="swatches">
+          <span class="sw" style="background:#ff8a3d"></span>
+          <code>#ff8a3d</code>
+          <span class="sw" style="background:#e0245e"></span>
+          <code>#e0245e</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-card" onclick="selectTheme(this)" data-theme="glacier">
+      <img src="img/glacier.png" alt="Glacier" onerror="this.style.display='none'"/>
+      <div class="theme-info">
+        <h3>Glacier</h3>
+        <p>Ice cold — sky blue + deep blue</p>
+        <div class="swatches">
+          <span class="sw" style="background:#5cc8ff"></span>
+          <code>#5cc8ff</code>
+          <span class="sw" style="background:#2a6bff"></span>
+          <code>#2a6bff</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-card" onclick="selectTheme(this)" data-theme="neon">
+      <img src="img/neon.png" alt="Neon" onerror="this.style.display='none'"/>
+      <div class="theme-info">
+        <h3>Neon</h3>
+        <p>Synthwave — pink + cyan</p>
+        <div class="swatches">
+          <span class="sw" style="background:#ff3da5"></span>
+          <code>#ff3da5</code>
+          <span class="sw" style="background:#22e5ff"></span>
+          <code>#22e5ff</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-card" onclick="selectTheme(this)" data-theme="mq">
+      <div class="fake-img" style="background:linear-gradient(135deg,#040f10,#0b4f5c)">MQ</div>
+      <div class="theme-info">
+        <h3>MQ</h3>
+        <p>Marquardt branded — dark teal</p>
+        <div class="swatches">
+          <span class="sw" style="background:#009aa6"></span>
+          <code>#009aa6</code>
+          <span class="sw" style="background:#0b4f5c"></span>
+          <code>#0b4f5c</code>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="install">
+  <h2>Installation</h2>
+  <p class="section-sub">Three steps. Takes under a minute.</p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Clone the repository</h3>
+        <p>Open a terminal and run:</p>
+        <div class="code-block">
+          <code>git clone https://github.com/itspriyanshuks17/grub-boot-loader.git</code>
+          <button onclick="copy(this)" data-text="git clone https://github.com/itspriyanshuks17/grub-boot-loader.git">Copy</button>
+        </div>
+        <div class="code-block">
+          <code>cd grub-boot-loader</code>
+          <button onclick="copy(this)" data-text="cd grub-boot-loader">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Make the installer executable</h3>
+        <div class="code-block">
+          <code>chmod +x install.sh</code>
+          <button onclick="copy(this)" data-text="chmod +x install.sh">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Run the installer</h3>
+        <p>You will be shown a numbered menu to pick your theme.</p>
+        <div class="code-block">
+          <code>sudo ./install.sh</code>
+          <button onclick="copy(this)" data-text="sudo ./install.sh">Copy</button>
+        </div>
+        <div class="terminal">
+          <div class="term-bar"><span></span><span></span><span></span></div>
+          <pre>Available themes:
+  1) aurora
+  2) ember
+  3) glacier
+  4) marquardt
+  5) mq
+  6) neon
+
+Select a theme [1-6]: <span class="cursor">_</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Reboot</h3>
+        <p>The installer runs <code>update-grub</code> automatically. Just reboot to see your new theme.</p>
+        <div class="code-block">
+          <code>sudo reboot</code>
+          <button onclick="copy(this)" data-text="sudo reboot">Copy</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="switch-uninstall">
+    <div class="su-card">
+      <h3>Switch Theme</h3>
+      <p>Run the installer again — it overwrites the current theme.</p>
+      <div class="code-block"><code>sudo ./install.sh</code></div>
+    </div>
+    <div class="su-card">
+      <h3>Uninstall</h3>
+      <p>Removes theme files and cleans <code>/etc/default/grub</code>.</p>
+      <div class="code-block"><code>sudo ./install.sh --uninstall</code></div>
+    </div>
+  </div>
+</section>
+
+<section id="manual">
+  <h2>Manual Install</h2>
+  <p class="section-sub">If you prefer to do it yourself without the script.</p>
+  <div class="code-block wide">
+    <pre><code>sudo cp -r themes/marquardt/ /boot/grub/themes/marquardt
+
+# Add to /etc/default/grub:
+GRUB_THEME="/boot/grub/themes/marquardt/theme.txt"
+GRUB_GFXMODE=1920x1080,auto
+
+# Apply:
+sudo update-grub
+# Fedora/RHEL:
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre>
+  </div>
+  <p class="note">Replace <code>marquardt</code> with any theme name from the <code>themes/</code> folder.</p>
+</section>
+
+<section id="faq">
+  <h2>FAQ</h2>
+  <div class="faq-list">
+
+    <details>
+      <summary>Which distros are supported?</summary>
+      <p>Any Linux distro that uses GRUB2 — Ubuntu, Debian, Fedora, Arch, openSUSE, Mint, Pop!_OS and more. The installer auto-detects <code>update-grub</code> vs <code>grub2-mkconfig</code>.</p>
+    </details>
+
+    <details>
+      <summary>Will this break my Windows dual-boot?</summary>
+      <p>No. This only themes GRUB's menu. It does not touch Windows Boot Manager, the EFI partition entries, or any bootloader other than GRUB.</p>
+    </details>
+
+    <details>
+      <summary>Does it work with Secure Boot?</summary>
+      <p>GRUB themes work independently of Secure Boot — they are just image and config files loaded by GRUB, not EFI executables. Secure Boot should not be affected.</p>
+    </details>
+
+    <details>
+      <summary>The theme is not showing after reboot.</summary>
+      <p>Make sure <code>GRUB_TERMINAL_OUTPUT=console</code> is not active in <code>/etc/default/grub</code> — it overrides graphical mode. The installer comments it out automatically. Also verify <code>GRUB_GFXMODE</code> is set.</p>
+    </details>
+
+    <details>
+      <summary>Fedora: GRUB_THEME is being ignored.</summary>
+      <p>On BLS (Boot Loader Specification) systems, set <code>GRUB_ENABLE_BLSCFG=false</code> in <code>/etc/default/grub</code> before running <code>grub2-mkconfig</code>. Only do this if you understand your setup.</p>
+    </details>
+
+    <details>
+      <summary>How do I test without installing?</summary>
+      <p>Press <code>C</code> at the GRUB menu to open the command line, then:</p>
+      <pre class="inline-pre">loadfont (hd0,1)/boot/grub/fonts/unicode.pf2
+set theme=(hd0,1)/boot/grub/themes/marquardt/theme.txt
+export theme</pre>
+    </details>
+
+  </div>
+</section>
+
+<footer>
+  <p>Marquardt GRUB Theme &mdash; MIT License</p>
+  <p>
+    <a href="https://github.com/itspriyanshuks17/grub-boot-loader" target="_blank">GitHub</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://github.com/itspriyanshuks17/grub-boot-loader/issues" target="_blank">Report an Issue</a>
+  </p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
