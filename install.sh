@@ -6,7 +6,7 @@ if [ "${1:-}" = "--help" ] || [ "${1:-}" = "-h" ]; then
     cat <<EOF
 Usage: sudo $0 [--switch | --theme THEME | --uninstall]
 
-  --switch          Choose a theme to install or switch to (interactive)
+  --switch          Activate a theme whose files are already installed
   --theme THEME     Install or switch directly to a bundled theme
   --uninstall       Remove the active bundled theme and GRUB_THEME setting
 EOF
@@ -61,6 +61,55 @@ if [ -f "$GRUB_CFG" ]; then
     done
 fi
 
+INSTALLED_THEMES=()
+NEW_THEMES=()
+for name in "${THEMES[@]}"; do
+    if [ -f "$GRUB_THEMES/$name/theme.txt" ]; then
+        INSTALLED_THEMES+=("$name")
+    else
+        NEW_THEMES+=("$name")
+    fi
+done
+
+select_theme_from() {
+    local prompt="$1"
+    shift
+    local -a choices=("$@")
+    local i name suffix locked
+
+    if [ "${#choices[@]}" -eq 0 ]; then
+        echo "No themes are available for this action." >&2
+        return 1
+    fi
+
+    echo ""
+    echo "$prompt"
+    for i in "${!choices[@]}"; do
+        name="${choices[$i]}"
+        suffix=""
+        for locked in "${LOCKED_THEMES[@]}"; do
+            if [ "$name" = "$locked" ]; then
+                suffix=" [access key required]"
+            fi
+        done
+        if [ "$name" = "$CURRENT_THEME" ]; then
+            suffix+=" [currently active]"
+        fi
+        echo "  $((i+1))) $name$suffix"
+    done
+    echo ""
+    read -rp "Select a theme [1-${#choices[@]}]: " choice || {
+        echo "No theme selection was entered." >&2
+        return 1
+    }
+    if ! [[ "$choice" =~ ^[0-9]+$ ]] ||
+       [ "$choice" -lt 1 ] || [ "$choice" -gt "${#choices[@]}" ]; then
+        echo "Invalid choice." >&2
+        return 1
+    fi
+    THEME="${choices[$((choice-1))]}"
+}
+
 if [ "${1:-}" = "--uninstall" ]; then
     if [ -n "$CURRENT_THEME" ]; then
         rm -rf -- "$GRUB_THEMES/$CURRENT_THEME"
@@ -80,35 +129,69 @@ if [ "${1:-}" = "--uninstall" ]; then
 fi
 
 case "${1:-}" in
-    ""|--switch)
+    "")
         if [ "$#" -gt 1 ]; then
             echo "Usage: sudo $0 [--switch | --theme THEME | --uninstall]" >&2
             exit 2
         fi
         echo ""
-        echo "Current theme: ${CURRENT_THEME:-none detected}"
-        echo "Choose a theme to install or switch to:"
-        for i in "${!THEMES[@]}"; do
-            name="${THEMES[$i]}"
-            suffix=""
-            for locked in "${LOCKED_THEMES[@]}"; do
-                if [ "$name" = "$locked" ]; then
-                    suffix=" [access key required]"
-                fi
-            done
-            if [ "$name" = "$CURRENT_THEME" ]; then
-                suffix+=" [currently active]"
-            fi
-            echo "  $((i+1))) $name$suffix"
-        done
-        echo ""
-        read -rp "Select a theme [1-${#THEMES[@]}]: " choice
-        if ! [[ "$choice" =~ ^[0-9]+$ ]] ||
-           [ "$choice" -lt 1 ] || [ "$choice" -gt "${#THEMES[@]}" ]; then
-            echo "Invalid choice." >&2
-            exit 1
+        if [ -n "$CURRENT_THEME" ]; then
+            echo "Current installed theme: $CURRENT_THEME"
+            echo "What would you like to do?"
+            echo "  1) Install a new theme"
+            echo "  2) Change the current theme (choose from installed themes)"
+            read -rp "Choose an action [1-2]: " action || {
+                echo "No action was selected." >&2
+                exit 1
+            }
+            case "$action" in
+                1)
+                    if [ "${#NEW_THEMES[@]}" -eq 0 ]; then
+                        echo "All bundled themes are already installed; choose one to reinstall."
+                        select_theme_from "Select a theme to reinstall" "${THEMES[@]}"
+                    else
+                        select_theme_from "Select a new theme to install" "${NEW_THEMES[@]}"
+                    fi
+                    ;;
+                2)
+                    select_theme_from "Select an installed theme to activate" "${INSTALLED_THEMES[@]}"
+                    ;;
+                *)
+                    echo "Invalid action." >&2
+                    exit 1
+                    ;;
+            esac
+        elif [ "${#INSTALLED_THEMES[@]}" -gt 0 ]; then
+            echo "No active bundled theme is configured."
+            echo "  1) Install a new theme"
+            echo "  2) Activate a theme that is already installed"
+            read -rp "Choose an action [1-2]: " action || {
+                echo "No action was selected." >&2
+                exit 1
+            }
+            case "$action" in
+                1)
+                    if [ "${#NEW_THEMES[@]}" -eq 0 ]; then
+                        select_theme_from "Select a theme to reinstall" "${THEMES[@]}"
+                    else
+                        select_theme_from "Select a new theme to install" "${NEW_THEMES[@]}"
+                    fi
+                    ;;
+                2) select_theme_from "Select an installed theme to activate" "${INSTALLED_THEMES[@]}" ;;
+                *) echo "Invalid action." >&2; exit 1 ;;
+            esac
+        else
+            echo "No bundled theme is installed yet."
+            select_theme_from "Select a theme to install" "${THEMES[@]}"
         fi
-        THEME="${THEMES[$((choice-1))]}"
+        ;;
+    --switch)
+        if [ "$#" -ne 1 ]; then
+            echo "Usage: sudo $0 --switch" >&2
+            exit 2
+        fi
+        echo "Current installed theme: ${CURRENT_THEME:-none detected}"
+        select_theme_from "Select an installed theme to activate" "${INSTALLED_THEMES[@]}"
         ;;
     --theme)
         if [ "$#" -ne 2 ]; then
