@@ -4,6 +4,33 @@ const THEME_NAMES = { marquardt: 'Classic', mq: 'MQ', aurora: 'Aurora', ember: '
 let pendingTheme = null;
 let selectedInstallTheme = null;
 
+/* Site palette selector is visual only; it does not alter GRUB on the device. */
+const paletteSelect = document.getElementById('palette-select');
+const SITE_PALETTES = ['aurora', 'ember', 'glacier', 'neon', 'marquardt', 'mq'];
+let savedPalette = null;
+try {
+  savedPalette = localStorage.getItem('site-palette');
+} catch (_) {
+  // Palette switching remains available for this visit without storage.
+}
+setSitePalette(SITE_PALETTES.includes(savedPalette) ? savedPalette : 'aurora', false);
+if (paletteSelect) {
+  paletteSelect.addEventListener('change', () => setSitePalette(paletteSelect.value));
+}
+
+function setSitePalette(palette, persist = true) {
+  if (!SITE_PALETTES.includes(palette)) return;
+  document.documentElement.dataset.palette = palette;
+  if (paletteSelect) paletteSelect.value = palette;
+  if (persist) {
+    try {
+      localStorage.setItem('site-palette', palette);
+    } catch (_) {
+      // Keep the selected palette for this visit when storage is unavailable.
+    }
+  }
+}
+
 /* Accessible dark/light appearance toggle, saved between visits. */
 const themeToggle = document.getElementById('theme-toggle');
 let savedTheme = null;
