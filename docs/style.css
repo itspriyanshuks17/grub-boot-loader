@@ -167,14 +167,6 @@ section h2 {
   font-size: 0.95rem;
 }
 
-.preview-disclaimer {
-  color: var(--muted);
-  border-left: 2px solid var(--accent);
-  padding-left: 12px;
-  margin: 2px 0 20px;
-  font-size: 0.84rem;
-}
-
 /* ── THEME GRID ── */
 .theme-grid {
   display: grid;
