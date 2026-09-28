@@ -6,7 +6,12 @@ let selectedInstallTheme = null;
 
 /* Accessible dark/light appearance toggle, saved between visits. */
 const themeToggle = document.getElementById('theme-toggle');
-const savedTheme = localStorage.getItem('site-theme');
+let savedTheme = null;
+try {
+  savedTheme = localStorage.getItem('site-theme');
+} catch (_) {
+  // The toggle still works for this visit when storage is unavailable.
+}
 if (savedTheme === 'light') document.documentElement.dataset.theme = 'light';
 updateThemeToggle();
 
@@ -14,7 +19,11 @@ if (themeToggle) {
   themeToggle.addEventListener('click', () => {
     const isLight = document.documentElement.dataset.theme !== 'light';
     document.documentElement.dataset.theme = isLight ? 'light' : 'dark';
-    localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+    try {
+      localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+    } catch (_) {
+      // Keep the selected appearance for the current page even without storage.
+    }
     updateThemeToggle();
   });
 }
