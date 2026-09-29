@@ -55,13 +55,20 @@ nav {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: var(--accent);
-  color: #fff;
+  background: linear-gradient(
+    to bottom,
+    #FF9933 0%,   #FF9933 33.33%,
+    #ffffff 33.33%, #ffffff 66.66%,
+    #138808 66.66%, #138808 100%
+  );
+  color: #00438a;
   font-size: 0.62rem;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.04em;
   flex: 0 0 auto;
   user-select: none;
+  text-shadow: 0 0 3px rgba(255,255,255,0.8);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 .logo-name { color: var(--white); }
 .logo-name span { color: var(--accent); }
