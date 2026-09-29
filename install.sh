@@ -2,12 +2,17 @@
 # GRUB theme installer with an interactive install/switch menu
 set -euo pipefail
 
+DEFAULT_TIMEOUT=30
+
 if [ "${1:-}" = "--help" ] || [ "${1:-}" = "-h" ]; then
     cat <<EOF
-Usage: sudo $0 [--switch | --theme THEME | --uninstall]
+Usage: sudo $0 [--switch | --theme THEME | --uninstall] [--timeout SECONDS]
 
   --switch          Activate a theme whose files are already installed
   --theme THEME     Install or switch directly to a bundled theme
+  --timeout SECONDS How long the boot menu waits before auto-booting
+                    (default: $DEFAULT_TIMEOUT). Only used together with
+                    --theme, or the plain install/switch menu.
   --uninstall       Remove the active bundled theme and GRUB_THEME setting
 EOF
     exit 0
@@ -17,6 +22,29 @@ fi
 
 GRUB_CFG="/etc/default/grub"
 THEMES_DIR="$(cd "$(dirname "$0")" && pwd)/themes"
+TIMEOUT=""
+
+# Pull a --timeout SECONDS pair out of the argument list wherever it appears,
+# leaving the remaining arguments (--switch / --theme THEME / --uninstall) untouched.
+ARGS=()
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --timeout)
+            [ "$#" -ge 2 ] || { echo "--timeout needs a value in seconds." >&2; exit 2; }
+            TIMEOUT="$2"
+            shift 2
+            ;;
+        *)
+            ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+set -- "${ARGS[@]+"${ARGS[@]}"}"
+if [ -n "$TIMEOUT" ] && ! [[ "$TIMEOUT" =~ ^[0-9]+$ ]]; then
+    echo "--timeout must be a whole number of seconds." >&2
+    exit 2
+fi
 
 # Detect GRUB config command and themes install path.
 if [ -d /boot/grub2 ]; then
@@ -36,6 +64,55 @@ fi
 
 LOCKED_THEMES=(marquardt mq)
 ACCESS_KEY="interns@mqi2025"
+
+# Set how long the graphical menu waits before auto-booting, and make sure the
+# menu (and its countdown) is actually shown: many distros ship
+# GRUB_TIMEOUT_STYLE=hidden, which would keep a theme from ever appearing.
+# With no explicit $1, an existing non-zero GRUB_TIMEOUT is left alone (so
+# switching themes doesn't quietly reset a timeout you already chose); a
+# missing or 0 timeout (Ubuntu's default) is replaced with $DEFAULT_TIMEOUT.
+apply_timeout() {
+    local secs="$1"
+    if [ -z "$secs" ]; then
+        local current
+        current="$(sed -n 's/^GRUB_TIMEOUT=//p' "$GRUB_CFG" | tail -n1)"
+        if [ -z "$current" ] || [ "$current" = "0" ]; then
+            secs="$DEFAULT_TIMEOUT"
+        else
+            secs="$current"
+        fi
+    fi
+    if grep -q '^GRUB_TIMEOUT=' "$GRUB_CFG"; then
+        sed -i "s|^GRUB_TIMEOUT=.*|GRUB_TIMEOUT=$secs|" "$GRUB_CFG"
+    else
+        echo "GRUB_TIMEOUT=$secs" >> "$GRUB_CFG"
+    fi
+    if grep -q '^GRUB_TIMEOUT_STYLE=' "$GRUB_CFG"; then
+        sed -i "s|^GRUB_TIMEOUT_STYLE=.*|GRUB_TIMEOUT_STYLE=menu|" "$GRUB_CFG"
+    else
+        echo "GRUB_TIMEOUT_STYLE=menu" >> "$GRUB_CFG"
+    fi
+}
+
+# GRUB does not look inside a theme folder for fonts on its own, so drop a
+# grub.d script that loads the theme's .pf2 files. The script's only job at
+# boot-config-generation time is to print a few grub commands to stdout,
+# which grub-mkconfig folds into the final grub.cfg (same trick 40_custom
+# uses with "exec tail").
+write_font_loader() {
+    local dest="$1" script="/etc/grub.d/06_theme_fonts" f
+    {
+        printf '#!/bin/sh\n'
+        printf 'cat <<'"'"'GRUBCFG'"'"'\n'
+        printf 'insmod all_video\n'
+        for f in "$dest"/*.pf2; do
+            [ -e "$f" ] || continue
+            printf 'loadfont "%s"\n' "$f"
+        done
+        printf 'GRUBCFG\n'
+    } > "$script"
+    chmod +x "$script"
+}
 
 THEMES=()
 for dir in "$THEMES_DIR"/*/; do
@@ -117,6 +194,7 @@ if [ "${1:-}" = "--uninstall" ]; then
     else
         echo "No active bundled theme path was found; leaving theme directories untouched."
     fi
+    rm -f /etc/grub.d/06_theme_fonts
     if [ -f "$GRUB_CFG" ]; then
         sed -i '/^GRUB_THEME=/d' "$GRUB_CFG"
     else
@@ -125,6 +203,26 @@ if [ "${1:-}" = "--uninstall" ]; then
     fi
     "${MKCONFIG[@]}"
     echo "Uninstalled. Reboot to apply."
+    exit 0
+fi
+
+# `--timeout SECONDS` with nothing else just updates the countdown for
+# whatever theme is already active, without touching theme selection.
+if [ -n "$TIMEOUT" ] && [ "$#" -eq 0 ]; then
+    if [ -z "$CURRENT_THEME" ]; then
+        echo "No active bundled theme found. Use --theme THEME --timeout SECONDS to install one with this timeout." >&2
+        exit 1
+    fi
+    if [ ! -f "$GRUB_CFG" ]; then
+        echo "GRUB configuration file not found: $GRUB_CFG" >&2
+        exit 1
+    fi
+    cp -n "$GRUB_CFG" "${GRUB_CFG}.bak-grubtheme" 2>/dev/null || true
+    apply_timeout "$TIMEOUT"
+    write_font_loader "$GRUB_THEMES/$CURRENT_THEME"
+    "${MKCONFIG[@]}"
+    echo ""
+    echo "Boot timeout updated to ${TIMEOUT}s for theme '$CURRENT_THEME'. Reboot to apply."
     exit 0
 fi
 
@@ -255,8 +353,13 @@ fi
 grep -q '^GRUB_GFXMODE=' "$GRUB_CFG" || echo 'GRUB_GFXMODE=1920x1080,auto' >> "$GRUB_CFG"
 sed -i 's|^GRUB_TERMINAL_OUTPUT=|#GRUB_TERMINAL_OUTPUT=|' "$GRUB_CFG"
 
+apply_timeout "$TIMEOUT"
+write_font_loader "$DEST"
+
 "${MKCONFIG[@]}"
+APPLIED_TIMEOUT="$(sed -n 's/^GRUB_TIMEOUT=//p' "$GRUB_CFG" | tail -n1)"
 echo ""
-echo "Theme '$THEME' is configured. Reboot to apply."
+echo "Theme '$THEME' is configured with a ${APPLIED_TIMEOUT}s boot timeout. Reboot to apply."
+echo "To change just the timeout later: sudo $0 --timeout SECONDS"
 echo "To switch themes: sudo $0 --switch"
 echo "To uninstall: sudo $0 --uninstall"
