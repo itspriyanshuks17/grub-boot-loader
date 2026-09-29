@@ -33,7 +33,7 @@
 <header>
   <div class="hero-text">
     <h1>GRUB Boot Theme</h1>
-    <p>A minimal dark bootloader theme with 6 color palettes.<br/>One command to install. Works on Ubuntu, Fedora, Debian and more.</p>
+    <p>A GRUB boot theme with 6 distinct designs — different layouts, not just palette swaps.<br/>One command to install. Works on Ubuntu, Fedora, Debian and more.</p>
     <div class="hero-btns">
       <a href="#install" class="btn-primary">Install Now</a>
       <a href="#themes" class="btn-outline">View Themes</a>
@@ -46,12 +46,12 @@
 
 <section id="themes">
   <h2>Choose Your Theme</h2>
-  <p class="section-sub">Click a theme to see its colors. All themes share the same layout — only the palette changes.<br/>
+  <p class="section-sub">Click a theme to see its colors. Each theme has its own layout and menu style — not just a recolor.<br/>
   <span class="lock-note">🔒 Locked themes require an access key.</span></p>
   <div class="theme-grid">
 
     <div class="theme-card locked" onclick="promptKey(this)" data-theme="marquardt">
-      <img src="img/grub-aurora.webp" alt="Illustrative GRUB boot menu preview for the Classic theme"/>
+      <img src="img/marquardt.png" alt="Marquardt theme — centred pill menu on a branded teal background" onerror="this.style.display='none'"/>
       <div class="lock-badge">🔒 Access Key Required</div>
       <div class="theme-info">
         <h3>Classic</h3>
@@ -64,7 +64,7 @@
     </div>
 
     <div class="theme-card" onclick="selectTheme(this)" data-theme="aurora">
-      <div class="fake-img" style="background:linear-gradient(135deg,#060c1a,#0d2a40)">Aurora</div>
+      <img src="img/aurora.png" alt="Aurora theme — centred glass cards under an aurora sky" onerror="this.style.display='none'"/>
       <div class="theme-info">
         <h3>Aurora</h3>
         <p>Cool sky — teal + purple</p>
@@ -76,7 +76,7 @@
     </div>
 
     <div class="theme-card" onclick="selectTheme(this)" data-theme="ember">
-      <img src="img/ember.png" alt="Ember" onerror="this.style.display='none'"/>
+      <img src="img/ember.png" alt="Ember theme — left-aligned menu over dark embered hills" onerror="this.style.display='none'"/>
       <div class="theme-info">
         <h3>Ember</h3>
         <p>Warm fire — orange + red</p>
@@ -88,7 +88,7 @@
     </div>
 
     <div class="theme-card" onclick="selectTheme(this)" data-theme="glacier">
-      <img src="img/glacier.png" alt="Glacier" onerror="this.style.display='none'"/>
+      <img src="img/glacier.png" alt="Glacier theme — right-aligned menu over icy ridgelines" onerror="this.style.display='none'"/>
       <div class="theme-info">
         <h3>Glacier</h3>
         <p>Ice cold — sky blue + deep blue</p>
@@ -100,7 +100,7 @@
     </div>
 
     <div class="theme-card" onclick="selectTheme(this)" data-theme="neon">
-      <img src="img/neon.png" alt="Neon" onerror="this.style.display='none'"/>
+      <img src="img/neon.png" alt="Neon theme — chamfered synthwave cards over a glowing grid horizon" onerror="this.style.display='none'"/>
       <div class="theme-info">
         <h3>Neon</h3>
         <p>Synthwave — pink + cyan</p>
@@ -112,7 +112,7 @@
     </div>
 
     <div class="theme-card locked" onclick="promptKey(this)" data-theme="mq">
-      <div class="fake-img" style="background:linear-gradient(135deg,#040f10,#0b4f5c)">MQ</div>
+      <img src="img/mq.png" alt="MQ theme — side-rail menu with the MQ mark" onerror="this.style.display='none'"/>
       <div class="lock-badge">🔒 Access Key Required</div>
       <div class="theme-info">
         <h3>MQ</h3>
@@ -221,6 +221,11 @@ Select a theme [1-6]: <span class="cursor">_</span></pre>
       <div class="code-block"><code>sudo ./install.sh --switch</code></div>
     </div>
     <div class="su-card">
+      <h3>Change Boot Timeout</h3>
+      <p>How long the menu waits before auto-booting (default 30s). Also turns off a hidden menu, since some distros ship it hidden by default.</p>
+      <div class="code-block"><code>sudo ./install.sh --timeout 45</code></div>
+    </div>
+    <div class="su-card">
       <h3>Uninstall</h3>
       <p>Removes theme files and cleans <code>/etc/default/grub</code>.</p>
       <div class="code-block"><code>sudo ./install.sh --uninstall</code></div>
@@ -237,13 +242,15 @@ Select a theme [1-6]: <span class="cursor">_</span></pre>
 # Add to /etc/default/grub:
 GRUB_THEME="/boot/grub/themes/aurora/theme.txt"
 GRUB_GFXMODE=1920x1080,auto
+GRUB_TIMEOUT=30
+GRUB_TIMEOUT_STYLE=menu
 
 # Apply:
 sudo update-grub
 # Fedora/RHEL:
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre>
   </div>
-  <p class="note">Replace <code>aurora</code> with any theme name from the <code>themes/</code> folder.</p>
+  <p class="note">Replace <code>aurora</code> with any theme name from the <code>themes/</code> folder. Each theme also ships its own <code>.pf2</code> fonts — <code>install.sh</code> loads these for you via a small <code>/etc/grub.d/06_theme_fonts</code> script; doing it fully by hand means adding your own <code>loadfont</code> lines for those files before GRUB shows the menu.</p>
 </section>
 
 <section id="faq">
@@ -267,7 +274,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg</code></pre>
 
     <details>
       <summary>The theme is not showing after reboot.</summary>
-      <p>Make sure <code>GRUB_TERMINAL_OUTPUT=console</code> is not active in <code>/etc/default/grub</code> — it overrides graphical mode. The installer comments it out automatically. Also verify <code>GRUB_GFXMODE</code> is set.</p>
+      <p>Make sure <code>GRUB_TERMINAL_OUTPUT=console</code> is not active in <code>/etc/default/grub</code> — it overrides graphical mode. The installer comments it out automatically. Also check <code>GRUB_TIMEOUT_STYLE</code>: many distros ship this as <code>hidden</code>, which skips the menu (and the theme) entirely unless a key is pressed. The installer sets it to <code>menu</code> for you; for a manual install, set it yourself.</p>
     </details>
 
     <details>
