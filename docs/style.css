@@ -48,6 +48,21 @@ nav {
   text-decoration: none;
 }
 .logo img { width: 30px; height: 30px; object-fit: contain; flex: 0 0 auto; }
+.logo-pks-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  flex: 0 0 auto;
+  user-select: none;
+}
 .logo-name { color: var(--white); }
 .logo-name span { color: var(--accent); }
 
